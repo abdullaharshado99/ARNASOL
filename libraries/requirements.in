@@ -4,3 +4,4 @@ flask_mail
 flask_login
 python-dotenv
 gunicorn
+sendgrid
