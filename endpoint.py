@@ -4,7 +4,7 @@ from flask_cors import CORS
 from functools import wraps
 from dotenv import load_dotenv
 from datetime import datetime, timedelta
-from main import generate_chat_response, send_email_notification
+from pipeline import generate_chat_response, send_email_notification
 from flask import Flask, render_template, request, jsonify, redirect, url_for, session
 
 app = Flask(__name__)
