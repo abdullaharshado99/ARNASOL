@@ -11,17 +11,14 @@ RUN apt-get update && apt-get install -y \
 
 # Install dependencies first (better layer caching)
 COPY requirements.txt .
-# Optional: Copy libraries requirements if they exist
-COPY libraries/requirements.txt ./libraries/ 2>/dev/null || true
+COPY libraries/requirements.txt ./libraries/
 RUN pip install --no-cache-dir -r requirements.txt
 
 # Copy application code
 COPY Anna_pipeline/ ./Anna_pipeline/
 COPY endpoint.py pipeline.py .
-
-# Copy templates and static files (if they exist)
-COPY templates/ ./templates/ 2>/dev/null || true
-COPY static/ ./static/ 2>/dev/null || true
+COPY templates/ ./templates/
+COPY static/ ./static/
 
 # Create all necessary directories for RAG pipeline
 RUN mkdir -p uploads vector_db data/exports data/raw_documents
