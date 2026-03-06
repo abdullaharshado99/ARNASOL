@@ -1,4 +1,8 @@
 import os
+from dotenv import load_dotenv
+
+load_dotenv()
+
 
 class RAGConfig:
     # Chunking settings
@@ -7,20 +11,16 @@ class RAGConfig:
 
     # Embedding settings
     EMBEDDING_MODEL = "sentence-transformers/paraphrase-mpnet-base-v2"
+    COHERE_EMBEDDING_MODEL = "embed-multilingual-v3.0"
     # Alternative: "BAAI/bge-small-en-v1.5" or "intfloat/e5-large-v2" or "all-MiniLM-L6-v2"
 
-    # Vector DB settings
-    VECTOR_DB_PATH = "D:/Abdullah/Documents/codes/Projects/ArtiNex/static/vector_db/chroma"
-    COLLECTION_NAME = "arnasol_documents"
 
-    # LLM settings (using HuggingFace or OpenAI)
-    USE_OPENAI = False  # Set to True if using OpenAI
-    OPENAI_API_KEY = os.environ.get('OPENAI_API_KEY', '')
-    OPENAI_MODEL = "gpt-3.5-turbo"
+    COHERE_KEY = os.getenv("COHERE_KEY")
 
-    # Local LLM (HuggingFace)
-    LOCAL_LLM_MODEL = "microsoft/phi-2"  # Small but powerful
-    # Alternative: "mistralai/Mistral-7B-Instruct-v0.1"
+    CHROMA_KEY = os.getenv("CHROMA_CLOUD")
+    TENANT_KEY = os.getenv("CHROMA_TENANT")
+    CHROMA_DATABASE = os.getenv("CHROMA_DATABASE")
+    CHROMA_COLLECTION = os.getenv("CHROMA_DATABASE")
 
     # Search settings
     TOP_K_RESULTS = 1
@@ -29,5 +29,4 @@ class RAGConfig:
     # File upload settings
     UPLOAD_FOLDER = "uploads"
     DATA_FOLDER = "D:\Abdullah\Documents\codes\Projects\ArtiNex\static\data"
-    ALLOWED_EXTENSIONS = {'txt', 'pdf', 'docx', 'csv', 'md'}
     MAX_CONTENT_LENGTH = 16 * 1024 * 1024  # 16MB
