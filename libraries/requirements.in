@@ -5,6 +5,7 @@ flask_login
 python-dotenv
 gunicorn
 resend
+cohere
 pillow
 pypdf
 pypdf2
@@ -12,9 +13,6 @@ langchain
 langchain-community
 langchain-chroma
 langchain_experimental
-sentence-transformers
 docx2txt
 openpyxl
 tiktoken
-torch
-transformers
