@@ -1,12 +1,17 @@
+import os
 import numpy as np
+from dotenv import load_dotenv
 from Anna_pipeline.config import RAGConfig
 from sentence_transformers import SentenceTransformer
 
+load_dotenv()
+
+hf_token = os.getenv("HF_TOKEN")
 
 class EmbeddingGenerator:
     def __init__(self):
         self.config = RAGConfig()
-        self.model = SentenceTransformer(self.config.EMBEDDING_MODEL)
+        self.model = SentenceTransformer(self.config.EMBEDDING_MODEL, token=hf_token)
 
     def generate_embeddings(self, texts: list[str]) -> np.ndarray:
         """Generate embeddings for a list of texts"""
