@@ -1,17 +1,9 @@
-import os
 import chromadb
 import numpy as np
-from dotenv import load_dotenv
 from typing import List, Dict, Any
 from chromadb.config import Settings
 from Anna_pipeline.config import RAGConfig
 from Anna_pipeline.embeddings import EmbeddingGenerator
-
-load_dotenv()
-
-chroma_key = os.getenv("CHROMA_CLOUD")
-tenant_key = os.getenv("CHROMA_TENANT")
-chroma_database = os.getenv("CHROMA_DATABASE")
 
 
 class VectorStore:
@@ -19,14 +11,14 @@ class VectorStore:
         self.config = RAGConfig()
         self.embedding_generator = EmbeddingGenerator()
         self.client = chromadb.CloudClient(
-            api_key=chroma_key,
-            tenant=tenant_key,
-            database=chroma_database,
+            api_key=self.config.CHROMA_KEY,
+            tenant=self.config.TENANT_KEY,
+            database=self.config.CHROMA_DATABASE,
             settings=Settings(anonymized_telemetry=False)
         )
 
         self.collection = self.client.get_or_create_collection(
-            name=self.config.COLLECTION_NAME,
+            name=self.config.CHROMA_COLLECTION,
             metadata={"hnsw:space": "cosine"}
         )
 
@@ -92,7 +84,7 @@ class VectorStore:
         count = self.collection.count()
         return {
             'total_documents': count,
-            'collection_name': self.config.COLLECTION_NAME
+            'collection_name': self.config.CHROMA_COLLECTION
         }
 
 if __name__=="__main__":
