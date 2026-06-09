@@ -28,9 +28,16 @@ app.secret_key = RAGConfig.FLASK_APP_PASSWORD
 def home():
     return render_template('home.html')
 
+# @app.route('/robots.txt')
+# def robots():
+#     return send_from_directory(app.static_folder, 'static/robots.txt')
+
 @app.route('/robots.txt')
 def robots():
-    return send_from_directory(app.static_folder, 'static/robots.txt')
+    return '''User-agent: *
+Allow: /
+
+Sitemap: https://arnasol.arnaindustry.com/sitemap.xml''', 200, {'Content-Type': 'text/plain'}
 
 def admin_required(f):
     @wraps(f)
