@@ -2,7 +2,6 @@ import sqlite3
 from flask_cors import CORS
 from functools import wraps
 from dotenv import load_dotenv
-from flask import send_from_directory
 from datetime import datetime, timedelta
 from Anna_pipeline.config import RAGConfig
 from pipeline import send_email_notification
@@ -27,10 +26,6 @@ app.secret_key = RAGConfig.FLASK_APP_PASSWORD
 @app.route('/')
 def home():
     return render_template('home.html')
-
-# @app.route('/robots.txt')
-# def robots():
-#     return send_from_directory(app.static_folder, 'static/robots.txt')
 
 @app.route('/robots.txt')
 def robots():
