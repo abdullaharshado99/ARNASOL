@@ -6,7 +6,8 @@ from flask import send_from_directory
 from datetime import datetime, timedelta
 from Anna_pipeline.config import RAGConfig
 from pipeline import send_email_notification
-from Anna_pipeline.anna_qa_model.query_engine import QueryEngine
+from Anna_pipeline.query_engine import QueryEngine
+# from Anna_pipeline.anna_qa_model.query_engine import QueryEngine
 from flask import Flask, render_template, request, jsonify, redirect, url_for, session
 
 
