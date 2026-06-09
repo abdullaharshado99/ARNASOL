@@ -69,16 +69,16 @@ def chat_api():
         })
 
         response = query_engine.search(query)
-        print(f"The {response=}")
+        print(f"The {response[0]['text']}")
 
         chat_sessions[session_id]['history'].append({
             'role': 'bot',
-            'message': response,
+            'message': response[0]['text'],
             'timestamp': datetime.now().isoformat()
         })
 
         return jsonify({
-            'response': response,
+            'response': response[0]['text'],
             'session_id': session_id
         })
 
