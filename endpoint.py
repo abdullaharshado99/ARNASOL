@@ -2,9 +2,11 @@ import sqlite3
 from flask_cors import CORS
 from functools import wraps
 from dotenv import load_dotenv
+from flask import send_from_directory
 from datetime import datetime, timedelta
+from Anna_pipeline.config import RAGConfig
 from pipeline import send_email_notification
-from Anna_pipeline.query_engine import QueryEngine, RAGConfig
+from Anna_pipeline.anna_qa_model.query_engine import QueryEngine
 from flask import Flask, render_template, request, jsonify, redirect, url_for, session
 
 
@@ -24,6 +26,10 @@ app.secret_key = RAGConfig.FLASK_APP_PASSWORD
 @app.route('/')
 def home():
     return render_template('home.html')
+
+@app.route('/robots.txt')
+def robots():
+    return send_from_directory(app.static_folder, 'static/robots.txt')
 
 def admin_required(f):
     @wraps(f)
@@ -60,15 +66,16 @@ def chat_api():
         })
 
         response = query_engine.search(query)
+        print(f"The {response=}")
 
         chat_sessions[session_id]['history'].append({
             'role': 'bot',
-            'message': response[0]["text"],
+            'message': response,
             'timestamp': datetime.now().isoformat()
         })
 
         return jsonify({
-            'response': response[0]["text"],
+            'response': response,
             'session_id': session_id
         })
 
