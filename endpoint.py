@@ -28,7 +28,7 @@ def home():
     return render_template('home.html')
 
 @app.route('/health')
-def home():
+def health():
     return {"Health": "Good.", "Status": "200"}
 
 @app.route('/robots.txt')
