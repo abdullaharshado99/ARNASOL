@@ -27,6 +27,10 @@ app.secret_key = RAGConfig.FLASK_APP_PASSWORD
 def home():
     return render_template('home.html')
 
+@app.route('/health')
+def home():
+    return {"Health": "Good.", "Status": "200"}
+
 @app.route('/robots.txt')
 def robots():
     return '''User-agent: *
